@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Raj2002#
+      MYSQL_DATABASE: users_db
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"  # Changed from 3306 to 3307
+    networks:
+      - flask-mysql-net
+
+  flask:
+    build: .
+    container_name: flask-container
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    networks:
+      - flask-mysql-net
+
+volumes:
+  mysql-data:
+
+networks:
+  flask-mysql-net:
