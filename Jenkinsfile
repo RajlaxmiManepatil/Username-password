@@ -12,11 +12,7 @@ pipeline {
             }
         }
 
-        stage('Stop Existing Containers') {
-            steps {
-                sh 'docker-compose down || true'
-            }
-        }
+        
 
         stage('Build Images') {
             steps {
