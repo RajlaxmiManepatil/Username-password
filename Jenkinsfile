@@ -19,12 +19,11 @@ pipeline {
         }
 
         stage('Start Containers') {
-            steps {
-                bat 'docker-compose up -d'
-                // Optional: wait a bit to let containers start
-                bat 'timeout /t 10'
-            }
-        }
+    steps {
+        bat 'docker-compose up -d'
+        sleep time: 10, unit: 'SECONDS'
+    }
+}
 
         stage('Verify App') {
             steps {
