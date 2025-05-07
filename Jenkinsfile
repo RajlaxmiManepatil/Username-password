@@ -25,7 +25,7 @@ pipeline {
     }
 }
 
-        sstage('Verify App') {
+        stage('Verify App') {
     steps {
         script {
             def response = bat(script: 'curl -s -o nul -w "%%{http_code}" http://localhost:5000', returnStdout: true).trim()
