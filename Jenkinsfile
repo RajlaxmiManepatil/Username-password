@@ -25,10 +25,11 @@ pipeline {
     }
 }
 
-        stage('Verify App') {
+      stage('Verify App') {
     steps {
         script {
-            def response = bat(script: 'curl -s -o nul -w "%%{http_code}" http://localhost:5000', returnStdout: true).trim()
+            def raw = bat(script: 'curl -s -o nul -w "%%{http_code}" http://localhost:5000', returnStdout: true)
+            def response = raw.readLines().last().trim()
             echo "HTTP Response Code: ${response}"
             if (response != '200') {
                 error "App did not return 200 OK. Got response code: ${response}"
@@ -36,6 +37,7 @@ pipeline {
         }
     }
 }
+
 
     }
 
